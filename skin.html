@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin & Hair Analysis - FamHealth AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-body">
+    <div class="background-animation"></div>
+    <div class="container dashboard-container">
+        <!-- Header -->
+        <header class="dash-header glass" style="margin-bottom: 1.5rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <a href="index.html" class="back-btn">←</a>
+                <div>
+                    <h1 class="mb-0">Skin & Hair AI</h1>
+                    <p class="subtitle mb-0">Upload a selfie for a quick check</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="dash-main">
+            <!-- Upload Section -->
+            <section class="glass card-section text-center">
+                <div class="upload-area" id="uploadArea">
+                    <div class="icon mb-1" style="font-size: 3rem;">📸</div>
+                    <p id="uploadText">Tap to take a photo or upload</p>
+                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                </div>
+                <!-- Preview -->
+                <div id="imagePreviewContainer" class="hidden mt-2">
+                    <img id="imagePreview" src="" alt="preview" style="max-width: 100%; border-radius: 12px; margin-bottom: 1rem;">
+                    <button id="analyzeBtn" class="ai-btn">Analyze with AI ✨</button>
+                </div>
+            </section>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="hidden mt-2 text-center">
+                <div class="spinner mx-auto" style="border-top-color: var(--accent-color); margin: 0 auto 1rem auto; width: 40px; height: 40px;"></div>
+                <p>FamHealth AI is analyzing your image...</p>
+            </div>
+
+            <!-- Results Section -->
+            <section id="resultsSection" class="glass card-section hidden mt-2">
+                <h2>AI Analysis Results</h2>
+                
+                <div class="metric-item mb-1 mt-1">
+                    <span class="label">Skin Type Estimate</span>
+                    <span class="val" id="resSkinType">--</span>
+                </div>
+                
+                <div class="ai-insight">
+                    <div class="insight-header">
+                        <span class="icon">💡</span>
+                        <h3 style="font-size: 1rem;">Recommendations</h3>
+                    </div>
+                    <p id="resRecommendations">--</p>
+                </div>
+                
+                <button id="resetBtn" class="mt-2" style="background: rgba(255, 255, 255, 0.1);">Analyze Another Photo</button>
+            </section>
+        </main>
+    </div>
+
+    <script src="skin.js"></script>
+</body>
+</html>
