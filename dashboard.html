@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FamHealth AI - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-body">
+    <div class="background-animation"></div>
+    <div class="container dashboard-container">
+        <!-- Header -->
+        <header class="dash-header glass" style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+                <h1 class="mb-0" data-i18n="dash_title">Dashboard</h1>
+                <p class="subtitle mb-0" id="welcomeMsg">Welcome to FamHealth AI</p>
+            </div>
+            <select id="globalLangToggle" style="padding: 0.25rem 0.5rem; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.2); outline: none; border-radius: 8px; background: rgba(0,0,0,0.2); color: white; cursor: pointer;">
+                <option value="en" style="color: black;">English</option>
+                <option value="te" style="color: black;">తెలుగు (Telugu)</option>
+            </select>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dash-main">
+            <!-- Health Profile summary -->
+            <section class="glass card-section mb-2">
+                <h2 style="font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; margin-bottom: 0.75rem;"><span data-i18n="dash_snapshot">Health Snapshot</span></h2>
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <span class="label">Activity</span>
+                        <span class="value" id="valActivity">--</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="label">Goal</span>
+                        <span class="value" id="valGoal">--</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="label">Diet</span>
+                        <span class="value" id="valDiet">--</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="label">Conditions</span>
+                        <span class="value" id="valConditions">--</span>
+                    </div>
+                    <div class="metric-item" style="grid-column: span 2;">
+                        <span class="label">Restrictions & Allergies</span>
+                        <span class="value" id="valAllergies" style="font-size: 0.85rem;">--</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Daily Recommendations -->
+            <section class="glass card-section ai-insight mb-2" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%); border-color: rgba(6, 182, 212, 0.3);">
+                <div class="insight-header" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                    <span class="icon">💡</span>
+                    <h2 class="mb-0" style="font-size: 1.1rem; color: #67e8f9;"><span data-i18n="dash_daily_rec">Daily AI Recommendation</span></h2>
+                </div>
+                <p id="dailyRecText" style="font-size: 0.9rem; line-height: 1.5; color: #f1f5f9; margin-bottom: 0;">Checking your profile...</p>
+            </section>
+
+            <!-- Features -->
+            <h2 class="section-title" data-i18n="dash_ai_assistant">AI Assistant</h2>
+            <div class="features-grid">
+                <!-- Smart Diet -->
+                <a href="diet.html" class="feature-card glass" style="text-decoration: none; color: inherit;">
+                    <div class="icon">🥗</div>
+                    <h3 data-i18n="dash_smart_diet">Smart Diet</h3>
+                    <p data-i18n="dash_smart_diet_desc">Track meals & macros</p>
+                </a>
+                
+                <!-- Skin Analysis -->
+                <a href="skin.html" class="feature-card glass" style="text-decoration: none; color: inherit;">
+                    <div class="icon">✨</div>
+                    <h3 data-i18n="dash_skin">Skin Analysis</h3>
+                    <p data-i18n="dash_skin_desc">AI checkup for skin/hair</p>
+                </a>
+            <a href="analytics.html" class="feature-card glass" style="text-decoration: none; color: inherit; grid-column: span 2;">
+                <div class="icon">📈</div>
+                <h3 data-i18n="dash_analytics">Analytics Dashboard</h3>
+                <p data-i18n="dash_analytics_desc">Diet score & weekly trends</p>
+            </a>
+            </div>
+            
+            <button id="logoutBtn" class="logout-btn glass" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.3); color: #fca5a5;" data-i18n="dash_reset_profile">Reset Profile</button>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav glass">
+            <a href="dashboard.html" class="nav-item active">
+                <span class="icon">🏠</span>
+                <span>Home</span>
+            </a>
+            <a href="diet.html" class="nav-item">
+                <span class="icon">📊</span>
+                <span>Track</span>
+            </a>
+            <a href="coach.html" class="nav-item">
+                <span class="icon">🤖</span>
+                <span>Coach</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="i18n.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

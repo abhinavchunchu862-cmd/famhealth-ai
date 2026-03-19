@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FamHealth AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-body">
+    <div class="background-animation"></div>
+    <div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px;">
+        
+        <!-- ======================= -->
+        <!-- 1. PROFILE SECTION      -->
+        <!-- ======================= -->
+        <!-- STEP 2 & 5: Ensure default state is strictly visible! -->
+        <div id="profileSection" style="display: block;">
+            <div class="form-card glass">
+                <div class="header mb-2">
+                    <h1 style="font-size: 1.5rem; text-align: center;">FamHealth AI</h1>
+                    <p style="text-align: center; color: rgba(255,255,255,0.7);">Complete your profile to personalize your health journey.</p>
+                </div>
+                
+                <form id="profileForm">
+                    <!-- Basic Info -->
+                    <div class="form-section">
+                        <h2>Basic Information</h2>
+                        <div class="input-group" style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <div class="input-field" style="flex: 1;">
+                                <label for="name">Name <span class="optional">(Optional)</span></label>
+                                <input type="text" id="name" class="glass-input" placeholder="Enter your name">
+                            </div>
+                            <div class="input-field" style="flex: 1;">
+                                <label for="age">Age <span class="required">*</span></label>
+                                <input type="number" id="age" class="glass-input" required min="1" max="120" placeholder="Years">
+                            </div>
+                        </div>
+                        <div class="input-group" style="display: flex; gap: 10px;">
+                            <div class="input-field" style="flex: 1;">
+                                <label for="height">Height (cm)</label>
+                                <input type="number" id="height" class="glass-input" placeholder="E.g. 175">
+                            </div>
+                            <div class="input-field" style="flex: 1;">
+                                <label for="weight">Weight (kg)</label>
+                                <input type="number" id="weight" class="glass-input" placeholder="E.g. 70">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Activity Level -->
+                    <div class="form-section mt-2">
+                        <h2>Activity Level</h2>
+                        <div class="radio-group" style="display: flex; flex-direction: column; gap: 8px;">
+                            <label class="radio-card">
+                                <input type="radio" name="activity_level" value="low" checked>
+                                <span class="card-content">Low (Sedentary desk job)</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="activity_level" value="medium">
+                                <span class="card-content">Medium (Active, exercise 2-3x/week)</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="activity_level" value="high">
+                                <span class="card-content">High (Very active, daily exercise)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Goals -->
+                    <div class="form-section mt-2">
+                        <h2>Your Goals <span class="required">*</span></h2>
+                        <p class="subtitle" style="font-size: 0.8rem; color: #cbd5e1;">Select all that apply</p>
+                        <div class="card-options multi-select" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                            <label class="checkbox-card small">
+                                <input type="checkbox" name="goal" value="weight_loss">
+                                <span class="card-content centered">Weight Loss</span>
+                            </label>
+                            <label class="checkbox-card small">
+                                <input type="checkbox" name="goal" value="weight_gain">
+                                <span class="card-content centered">Weight Gain</span>
+                            </label>
+                            <label class="checkbox-card small">
+                                <input type="checkbox" name="goal" value="muscle_gain">
+                                <span class="card-content centered">Muscle Gain</span>
+                            </label>
+                            <label class="checkbox-card small">
+                                <input type="checkbox" name="goal" value="maintain">
+                                <span class="card-content centered">Maintain</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Allergies -->
+                    <div class="form-section mt-2">
+                        <h2>Allergies</h2>
+                        <div class="card-options multi-select" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                            <label class="checkbox-card small">
+                                <input type="checkbox" name="allergy" value="nuts">
+                                <span class="card-content centered">Nuts</span>
+                            </label>
+                            <label class="checkbox-card small">
+                                <input type="checkbox" name="allergy" value="milk">
+                                <span class="card-content centered">Milk</span>
+                            </label>
+                            <label class="checkbox-card small">
+                                <input type="checkbox" name="allergy" value="gluten">
+                                <span class="card-content centered">Gluten</span>
+                            </label>
+                            <label class="checkbox-card small">
+                                <input type="checkbox" name="allergy" value="fruits">
+                                <span class="card-content centered">Fruits</span>
+                            </label>
+                            <label class="checkbox-card small">
+                                <input type="checkbox" name="allergy" value="eggs">
+                                <span class="card-content centered">Eggs</span>
+                            </label>
+                        </div>
+                        <input type="text" id="customAllergies" class="glass-input mt-1" style="font-size: 0.85rem;" placeholder="Other allergies (comma separated)">
+                    </div>
+
+                    <!-- Food Restrictions -->
+                    <div class="form-section mt-2 mb-2">
+                        <h2>Food Restrictions</h2>
+                        <div class="card-options multi-select" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                            <label class="checkbox-card small">
+                                <input type="checkbox" name="restriction" value="no_beef">
+                                <span class="card-content centered">No Beef</span>
+                            </label>
+                            <label class="checkbox-card small">
+                                <input type="checkbox" name="restriction" value="no_pork">
+                                <span class="card-content centered">No Pork</span>
+                            </label>
+                            <label class="checkbox-card small">
+                                <input type="checkbox" name="restriction" value="no_seafood">
+                                <span class="card-content centered">No Seafood</span>
+                            </label>
+                            <label class="checkbox-card small">
+                                <input type="checkbox" name="restriction" value="no_dairy">
+                                <span class="card-content centered">No Dairy</span>
+                            </label>
+                        </div>
+                        <input type="text" id="customRestrictions" class="glass-input mt-1" style="font-size: 0.85rem;" placeholder="Other restrictions (comma separated)">
+                    </div>
+
+                    <div class="actions" style="position: relative;">
+                        <!-- STEP 2: Save Button -->
+                        <button type="submit" id="submitBtn" class="submit-btn text-center glass" style="width: 100%; border-radius: 12px; display: flex; justify-content: center; align-items: center; cursor: pointer; padding: 12px;">
+                            <span class="btn-text" style="font-weight: bold;">Save Profile</span>
+                        </button>
+                        <div id="statusMessage" class="hidden" style="margin-top: 1rem; text-align: center; color: var(--success); font-weight: 500;"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ======================= -->
+        <!-- 2. DASHBOARD SECTION    -->
+        <!-- ======================= -->
+        <div id="dashboardSection" style="display: none; padding-bottom: 70px;">
+            <header class="dash-header glass" style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; padding: 15px; border-radius: 16px;">
+                <div>
+                    <h1 class="mb-0" style="font-size: 1.5rem;" data-i18n="dash_title">Dashboard</h1>
+                    <!-- STEP 5: Welcome message -->
+                    <p class="subtitle mb-0" id="dashWelcomeMsg" style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">Welcome to FamHealth AI</p>
+                </div>
+                <!-- STEP 6: Add reset button -->
+                <button id="resetProfileBtn" style="background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); color: white; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: bold; transition: 0.2s;">Reset Profile</button>
+            </header>
+
+            <main class="dash-main">
+                <!-- STEP 5: Health Profile summary -->
+                <section class="glass card-section mb-2" style="padding: 15px; border-radius: 16px;">
+                    <h2 style="font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; margin-bottom: 0.75rem;"><span data-i18n="dash_snapshot">Health Snapshot</span></h2>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px;">
+                            <span style="font-size: 0.75rem; color: #cbd5e1; text-transform: uppercase;">Activity</span>
+                            <div id="dashActivity" style="font-weight: 600;">--</div>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px;">
+                            <span style="font-size: 0.75rem; color: #cbd5e1; text-transform: uppercase;">Your Goals</span>
+                            <div id="dashGoal" style="font-weight: 600;">--</div>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; grid-column: span 2;">
+                            <span style="font-size: 0.75rem; color: #cbd5e1; text-transform: uppercase;">Your Conditions</span>
+                            <div id="dashAllergies" style="font-weight: 600; font-size: 0.9rem;">--</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="glass card-section ai-insight mb-2" style="padding: 15px; border-radius: 16px; background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%); border-color: rgba(6, 182, 212, 0.3);">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                        <span class="icon">💡</span>
+                        <h2 class="mb-0" style="font-size: 1.1rem; color: #67e8f9;"><span data-i18n="dash_daily_rec">Daily AI Recommendation</span></h2>
+                    </div>
+                    <p id="dailyRecText" style="font-size: 0.9rem; line-height: 1.5; color: #f1f5f9; margin-bottom: 0;">Checking your profile...</p>
+                </section>
+
+                <h2 class="section-title mt-2 mb-1" style="font-size: 1.1rem; margin-left: 5px;" data-i18n="dash_ai_assistant">AI Assistant Features</h2>
+                <div class="features-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <!-- Smart Diet -->
+                    <a href="diet.html" class="feature-card glass" style="text-decoration: none; color: inherit; padding: 15px; border-radius: 16px; text-align: center;">
+                        <div class="icon" style="font-size: 2rem;">🥗</div>
+                        <h3 style="font-size: 1rem; margin: 8px 0;" data-i18n="dash_smart_diet">Smart Diet</h3>
+                        <p style="font-size: 0.8rem; color: #cbd5e1;" data-i18n="dash_smart_diet_desc">Track meals & macros</p>
+                    </a>
+                    
+                    <!-- Skin Analysis -->
+                    <a href="skin.html" class="feature-card glass" style="text-decoration: none; color: inherit; padding: 15px; border-radius: 16px; text-align: center;">
+                        <div class="icon" style="font-size: 2rem;">✨</div>
+                        <h3 style="font-size: 1rem; margin: 8px 0;" data-i18n="dash_skin">Skin Analysis</h3>
+                        <p style="font-size: 0.8rem; color: #cbd5e1;" data-i18n="dash_skin_desc">AI checkup for skin/hair</p>
+                    </a>
+                    
+                    <!-- Analytics Dashboard -->
+                    <a href="analytics.html" class="feature-card glass" style="text-decoration: none; color: inherit; grid-column: span 2; padding: 15px; border-radius: 16px; text-align: center; display: flex; flex-direction: column; align-items: center;">
+                        <div class="icon" style="font-size: 2rem;">📈</div>
+                        <h3 style="font-size: 1rem; margin: 8px 0;" data-i18n="dash_analytics">Analytics</h3>
+                        <p style="font-size: 0.8rem; color: #cbd5e1;" data-i18n="dash_analytics_desc">Diet score & weekly trends</p>
+                    </a>
+                </div>
+            </main>
+
+            <!-- Bottom Navigation -->
+            <nav class="bottom-nav glass" style="position: fixed; bottom: 0; left: 0; width: 100%; display: flex; justify-content: space-around; padding: 10px 0; border-radius: 20px 20px 0 0; z-index: 100;">
+                <a href="#" class="nav-item active" style="text-decoration: none; color: #67e8f9; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                    <span class="icon" style="font-size: 1.2rem;">🏠</span>
+                    <span style="font-size: 0.75rem; font-weight: 500;">Home</span>
+                </a>
+                <a href="diet.html" class="nav-item" style="text-decoration: none; color: #cbd5e1; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                    <span class="icon" style="font-size: 1.2rem;">📊</span>
+                    <span style="font-size: 0.75rem;">Track</span>
+                </a>
+                <a href="coach.html" class="nav-item" style="text-decoration: none; color: #cbd5e1; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                    <span class="icon" style="font-size: 1.2rem;">🤖</span>
+                    <span style="font-size: 0.75rem;">Coach</span>
+                </a>
+            </nav>
+        </div>
+
+    </div>
+
+    <!-- Application Logic -->
+    <script src="i18n.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

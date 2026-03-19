@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Diet - FamHealth AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .tabs { display: flex; gap: 1rem; margin-bottom: 1rem; }
+        .tab-btn { flex: 1; padding: 0.75rem; background: rgba(15, 23, 42, 0.4); border: 1px solid var(--glass-border); border-radius: 12px; color: white; border: none; font-weight: 500; min-height: 44px; }
+        .tab-btn.active { background: var(--accent-color); border-color: var(--accent-color); }
+        .staging-item { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; background: rgba(0,0,0,0.1); padding: 0.5rem; border-radius: 8px; }
+        .staging-item input { background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 8px; padding: 0.5rem; color: white; font-size: 0.85rem;}
+        .stage-name { flex: 1 1 100%; margin-bottom: 0.25rem; }
+        .stage-macro { flex: 1; min-width: 60px; }
+        .remove-staging { background: rgba(239, 68, 68, 0.2); color: var(--error); border: none; border-radius: 8px; width: 36px; height: 36px; display: flex; justify-content: center; align-items: center; cursor: pointer; flex: none; }
+        .add-staging { background: rgba(16, 185, 129, 0.2); color: var(--success); border: none; border-radius: 8px; padding: 0.5rem 1rem; margin-top: 0.5rem; cursor: pointer; font-weight: 600; width: 100%; min-height: 44px; }
+        
+        .meal-group { margin-bottom: 1.5rem; }
+        .meal-group h3 { margin-bottom: 0.75rem; font-size: 1rem; color: var(--accent-color); border-bottom: 1px solid var(--glass-border); padding-bottom: 0.25rem; display: flex; justify-content: space-between;}
+        .food-item-badge { display: inline-block; background: rgba(255,255,255,0.1); padding: 0.35rem 0.5rem; border-radius: 8px; font-size: 0.75rem; margin-right: 0.25rem; margin-bottom: 0.25rem; width: 100%; display: flex; justify-content: space-between; align-items: center; }
+        
+        .macro-bars { display: flex; justify-content: space-between; margin-top: 1rem; gap: 0.5rem; }
+        .macro-col { flex: 1; text-align: center; background: rgba(15, 23, 42, 0.6); padding: 0.5rem; border-radius: 12px; }
+        .macro-title { font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; }
+        .macro-val { font-size: 0.9rem; font-weight: 600; margin: 0.25rem 0; }
+        .macro-goal { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
+    </style>
+</head>
+<body class="dashboard-body">
+    <div class="background-animation"></div>
+    <div class="container dashboard-container" style="padding-bottom: 80px;">
+        
+        <header class="dash-header glass" style="margin-bottom: 1rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <a href="index.html" class="back-btn">←</a>
+                <div>
+                    <h1 class="mb-0">Food Log</h1>
+                    <p class="subtitle mb-0">Track your nutrition</p>
+                </div>
+            </div>
+            <button id="addFoodFab" style="width: auto; padding: 0.5rem 1rem; min-height: 40px; margin: 0; font-size: 0.9rem;">+ Add Food</button>
+        </header>
+
+        <main class="dash-main">
+            <!-- Calorie Overview -->
+            <section class="glass card-section" style="margin-bottom: 1rem; padding: 1.25rem;">
+                <p class="subtitle mb-0" style="text-align: center;">Daily Intake Overview</p>
+                <div style="display: flex; justify-content: center; margin-top: 0.5rem;">
+                    <div class="calorie-progress" style="padding: 0;">
+                        <div class="circle-wrap" style="width: 130px; height: 130px;">
+                            <div class="inside-circle" id="calorieText" style="font-size: 1.75rem;">
+                                0 <br><span class="label" id="calorieGoalLabel">/ 2000 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="macro-bars">
+                    <div class="macro-col">
+                        <div class="macro-title" style="color: #60a5fa;">Protein</div>
+                        <div class="macro-val" id="valPro">0g</div>
+                        <div class="macro-goal" id="goalPro">/ 0g</div>
+                    </div>
+                    <div class="macro-col">
+                        <div class="macro-title" style="color: #34d399;">Carbs</div>
+                        <div class="macro-val" id="valCarb">0g</div>
+                        <div class="macro-goal" id="goalCarb">/ 0g</div>
+                    </div>
+                    <div class="macro-col">
+                        <div class="macro-title" style="color: #fbbf24;">Fat</div>
+                        <div class="macro-val" id="valFat">0g</div>
+                        <div class="macro-goal" id="goalFat">/ 0g</div>
+                    </div>
+                </div>
+
+                <!-- AI Analysis Card -->
+                <div class="ai-analysis-card mt-2" style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); padding: 1rem; border-radius: 12px;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span class="icon">✨</span>
+                        <h3 style="font-size: 0.95rem; margin: 0; color: #67e8f9;">AI Day Analysis</h3>
+                    </div>
+                    <ul id="aiSuggestionsList" style="margin: 0; padding-left: 1.5rem; font-size: 0.85rem; color: #f1f5f9; line-height: 1.6;">
+                        <li>Start logging your meals to get personalized AI suggestions!</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Add Food Form (Hidden by default) -->
+            <section id="addFoodSection" class="glass card-section hidden" style="border-color: var(--accent-color);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h2 class="mb-0">New Entry</h2>
+                    <button id="cancelAdd" style="background: transparent; color: var(--text-secondary); width: auto; padding: 0; min-height: auto;">Cancel</button>
+                </div>
+
+                <div class="input-field mb-1">
+                    <label>Meal Type</label>
+                    <select id="mealType" style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--glass-border); border-radius: 12px; padding: 0.875rem 1rem; color: white; width: 100%; outline: none;">
+                        <option value="breakfast">Breakfast</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="snacks">Snacks</option>
+                        <option value="dinner">Dinner</option>
+                    </select>
+                </div>
+
+                <div class="tabs mt-2">
+                    <button class="tab-btn active" id="tabText">Manual Entry</button>
+                    <button class="tab-btn" id="tabScan">Image Scan 📸</button>
+                </div>
+
+                <!-- Text Mode -->
+                <div id="modeText">
+                    <div class="input-field mb-1">
+                        <input type="text" id="quickAddInput" placeholder="E.g. 2 Dosa and Chutney">
+                    </div>
+                    <button id="quickAddBtn" style="min-height: 44px; margin-bottom: 1rem; background: rgba(255,255,255,0.1);">Parse Text</button>
+                </div>
+
+                <!-- Scan Mode -->
+                <div id="modeScan" class="hidden text-center">
+                    <div class="upload-area" id="scanUploadArea" style="padding: 1.5rem 1rem; margin-bottom: 1rem;">
+                        <span class="icon">📸</span>
+                        <p id="scanUploadText">Tap to scan your plate</p>
+                        <input type="file" id="scanInput" accept="image/*" style="display: none;">
+                    </div>
+                    <div id="scanLoading" class="hidden">
+                        <div class="spinner mx-auto" style="border-top-color: var(--accent-color); width: 30px; height: 30px; margin-bottom: 0.5rem;"></div>
+                        <p class="subtitle">AI is calculating macros...</p>
+                    </div>
+                </div>
+
+                <!-- Staging Area -->
+                <div id="stagingArea" class="hidden" style="margin-top: 1rem; border-top: 1px solid var(--glass-border); padding-top: 1rem;">
+                    <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--text-secondary);">Detected Items & Macros</h3>
+                    <div id="stagingItemsList"></div>
+                    <button class="add-staging" id="addStagingRow">+ Add another item</button>
+
+                    <div id="stagingTotal" style="margin-top: 1rem; text-align: right; font-size: 0.85rem; color: var(--text-primary); font-weight: 500;">
+                        Pending Total: <span style="color:var(--accent-color); font-weight:700;">0 kcal</span> (P:0g C:0g F:0g)
+                    </div>
+
+                    <button id="saveLogBtn" style="margin-top: 1.5rem; background: linear-gradient(135deg, #10b981 0%, #059669 100%);">Save to Log</button>
+                </div>
+            </section>
+
+            <!-- Food Log List -->
+            <section class="glass card-section mt-2">
+                <h2 style="margin-bottom: 1rem;">Today's Log</h2>
+                <div id="logsContainer">
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="diet.js"></script>
+</body>
+</html>
